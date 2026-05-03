@@ -1,0 +1,26 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:hospital:Room;1",
+  "@type": "Interface",
+  "displayName": "Hospital Room",
+  "contents": [
+    { "@type": "Property", "name": "wardId", "schema": "string" },
+    { "@type": "Property", "name": "bedCount", "schema": "integer" },
+    { "@type": "Property", "name": "occupiedBeds", "schema": "integer" },
+    { "@type": "Property", "name": "roomType", "schema": "string" },
+    { "@type": "Property", "name": "cleaningStatus", "schema": "string" },
+    { "@type": "Telemetry", "name": "occupancyRate", "schema": "double" },
+    { "@type": "Telemetry", "name": "airQualityPPM", "schema": "double" },
+    { "@type": "Telemetry", "name": "temperatureC", "schema": "double" },
+    {
+      "@type": "Relationship",
+      "name": "contains",
+      "target": "dtmi:carethread:clinical:PatientTwin;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "hasAsset",
+      "target": "dtmi:carethread:asset:MedicalDevice;1"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:clinical:PatientTwin;1",
+  "@type": "Interface",
+  "displayName": "Patient Twin",
+  "contents": [
+    { "@type": "Property", "name": "admissionDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "diagnosisCode", "schema": "string" },
+    { "@type": "Property", "name": "acuityScore", "schema": "integer" },
+    { "@type": "Property", "name": "expectedDischargeDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "cewsScore", "schema": "double" },
+    { "@type": "Property", "name": "deteriorationProb30m", "schema": "double" },
+    { "@type": "Property", "name": "sepsisFlag", "schema": "boolean" },
+    { "@type": "Property", "name": "fallRiskScore", "schema": "double" },
+    { "@type": "Telemetry", "name": "heartRate", "schema": "double" },
+    { "@type": "Telemetry", "name": "bpSystolic", "schema": "double" },
+    { "@type": "Telemetry", "name": "bpDiastolic", "schema": "double" },
+    { "@type": "Telemetry", "name": "spO2", "schema": "double" },
+    { "@type": "Telemetry", "name": "respiratoryRate", "schema": "double" },
+    { "@type": "Telemetry", "name": "temperatureC", "schema": "double" },
+    {
+      "@type": "Relationship",
+      "name": "assignedTo",
+      "target": "dtmi:carethread:staff:StaffMember;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "locatedIn",
+      "target": "dtmi:carethread:hospital:Room;1"
+    }
+  ]
+}

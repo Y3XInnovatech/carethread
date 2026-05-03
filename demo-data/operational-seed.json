@@ -1,0 +1,115 @@
+{
+  "wards": [
+    {
+      "id": "ward-med-a",
+      "name": "Medical Ward A",
+      "specialisation": "General Medicine",
+      "capacity": 24,
+      "staffRatio": 1.4
+    },
+    {
+      "id": "ward-icu",
+      "name": "ICU",
+      "specialisation": "Critical Care",
+      "capacity": 12,
+      "staffRatio": 2.1
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room-101",
+      "wardId": "ward-med-a",
+      "bedCount": 4,
+      "occupiedBeds": 3,
+      "roomType": "multi-bed",
+      "cleaningStatus": "clean",
+      "bedPatientMap": {
+        "bed-1": "pat-1001",
+        "bed-2": "pat-1002",
+        "bed-3": "pat-1003"
+      }
+    },
+    {
+      "id": "room-102",
+      "wardId": "ward-med-a",
+      "bedCount": 2,
+      "occupiedBeds": 0,
+      "roomType": "single",
+      "cleaningStatus": "needs_cleaning",
+      "bedPatientMap": {}
+    },
+    {
+      "id": "icu-01",
+      "wardId": "ward-icu",
+      "bedCount": 1,
+      "occupiedBeds": 1,
+      "roomType": "icu",
+      "cleaningStatus": "clean",
+      "bedPatientMap": { "bed-1": "pat-1004" }
+    }
+  ],
+  "staff": [
+    {
+      "staffId": "staff-nurse-01",
+      "role": "RN",
+      "specialisations": ["Medical", "IV certified"],
+      "certifications": ["BLS", "ACLS"],
+      "shiftPattern": "Days",
+      "currentWardId": "ward-med-a",
+      "assignedPatientIds": ["pat-1001", "pat-1002"]
+    },
+    {
+      "staffId": "staff-nurse-02",
+      "role": "RN",
+      "specialisations": ["Medical"],
+      "certifications": ["BLS"],
+      "shiftPattern": "Days",
+      "currentWardId": "ward-med-a",
+      "assignedPatientIds": ["pat-1003"]
+    },
+    {
+      "staffId": "staff-icu-01",
+      "role": "RN",
+      "specialisations": ["ICU", "Ventilator qualified"],
+      "certifications": ["BLS", "ACLS", "CCRN"],
+      "shiftPattern": "Rotating",
+      "currentWardId": "ward-icu",
+      "assignedPatientIds": ["pat-1004"]
+    }
+  ],
+  "assets": [
+    {
+      "deviceId": "asset-vent-4421",
+      "deviceType": "Ventilator",
+      "manufacturer": "DemoMed",
+      "serialNumber": "SN-V-88421",
+      "location": "icu-01",
+      "assetHealthScore": 72,
+      "failureProbability24h": 0.08,
+      "failureProbability48h": 0.14,
+      "failureProbability72h": 0.22,
+      "lastMaintenanceDate": "2026-04-10T09:00:00Z",
+      "calibrationDueDate": "2026-06-15T00:00:00Z",
+      "maintenanceStatus": "operational"
+    },
+    {
+      "deviceId": "asset-pump-9912",
+      "deviceType": "Infusion pump",
+      "manufacturer": "FlowCare",
+      "serialNumber": "SN-P-9912",
+      "location": "room-101",
+      "assetHealthScore": 91,
+      "failureProbability24h": 0.02,
+      "failureProbability48h": 0.04,
+      "failureProbability72h": 0.06,
+      "lastMaintenanceDate": "2026-04-28T14:00:00Z",
+      "calibrationDueDate": "2026-09-01T00:00:00Z",
+      "maintenanceStatus": "operational"
+    }
+  ],
+  "erMetrics": {
+    "arrivalsPerHour": 8.2,
+    "surgeThreshold": 12,
+    "projectedBedShortageWards": [{ "wardId": "ward-med-a", "shortfallBeds": 2, "horizonHours": 4 }]
+  }
+}

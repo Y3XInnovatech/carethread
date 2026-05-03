@@ -1,0 +1,27 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:staff:StaffMember;1",
+  "@type": "Interface",
+  "displayName": "Clinical Staff Member Twin",
+  "contents": [
+    { "@type": "Property", "name": "role", "schema": "string" },
+    {
+      "@type": "Property",
+      "name": "specialisations",
+      "schema": { "@type": "Array", "elementSchema": "string" }
+    },
+    { "@type": "Property", "name": "shiftPattern", "schema": "string" },
+    { "@type": "Property", "name": "workloadScore", "schema": "double" },
+    { "@type": "Property", "name": "fatigueIndex", "schema": "double" },
+    { "@type": "Property", "name": "burnoutRisk", "schema": "string" },
+    { "@type": "Property", "name": "currentWardId", "schema": "string" },
+    { "@type": "Telemetry", "name": "locationZone", "schema": "string" },
+    { "@type": "Telemetry", "name": "movementIntensity", "schema": "double" },
+    { "@type": "Telemetry", "name": "taskCompletionRate", "schema": "double" },
+    {
+      "@type": "Relationship",
+      "name": "responsibleFor",
+      "target": "dtmi:carethread:clinical:PatientTwin;1"
+    }
+  ]
+}

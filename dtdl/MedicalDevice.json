@@ -1,0 +1,25 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:asset:MedicalDevice;1",
+  "@type": "Interface",
+  "displayName": "Medical Device Asset Twin",
+  "contents": [
+    { "@type": "Property", "name": "deviceType", "schema": "string" },
+    { "@type": "Property", "name": "manufacturer", "schema": "string" },
+    { "@type": "Property", "name": "serialNumber", "schema": "string" },
+    { "@type": "Property", "name": "assetHealthScore", "schema": "double" },
+    { "@type": "Property", "name": "failureProbability24h", "schema": "double" },
+    { "@type": "Property", "name": "lastMaintenanceDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "calibrationDueDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "maintenanceStatus", "schema": "string" },
+    { "@type": "Telemetry", "name": "cycleCount", "schema": "long" },
+    { "@type": "Telemetry", "name": "internalTempC", "schema": "double" },
+    { "@type": "Telemetry", "name": "vibrationRMS", "schema": "double" },
+    { "@type": "Telemetry", "name": "errorCodeRate", "schema": "double" },
+    {
+      "@type": "Command",
+      "name": "triggerMaintenanceWorkOrder",
+      "request": { "name": "priority", "schema": "string" }
+    }
+  ]
+}

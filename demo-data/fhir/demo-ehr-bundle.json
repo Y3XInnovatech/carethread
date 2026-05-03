@@ -1,0 +1,378 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "timestamp": "2026-05-03T12:00:00Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:11111111-1111-1111-1111-111111111101",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "org-demo-hospital",
+        "name": "Demo General Hospital",
+        "active": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:22222222-2222-2222-2222-222222222201",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "pat-1001",
+        "active": true,
+        "name": [{ "use": "official", "family": "Chen", "given": ["Wei"] }],
+        "gender": "male",
+        "birthDate": "1958-07-22",
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.12345.1001",
+            "value": "MRN-1001"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:22222222-2222-2222-2222-222222222202",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "pat-1002",
+        "active": true,
+        "name": [{ "use": "official", "family": "Okonkwo", "given": ["Amara"] }],
+        "gender": "female",
+        "birthDate": "1971-11-03",
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.12345.1002",
+            "value": "MRN-1002"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:22222222-2222-2222-2222-222222222203",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "pat-1003",
+        "active": true,
+        "name": [{ "use": "official", "family": "Silva", "given": ["João"] }],
+        "gender": "male",
+        "birthDate": "1990-02-14",
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.12345.1003",
+            "value": "MRN-1003"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:22222222-2222-2222-2222-222222222204",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "pat-1004",
+        "active": true,
+        "name": [{ "use": "official", "family": "Patel", "given": ["Anika"] }],
+        "gender": "female",
+        "birthDate": "1966-09-30",
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.12345.1004",
+            "value": "MRN-1004"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:33333333-3333-3333-3333-333333333301",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "prac-dr-01",
+        "active": true,
+        "name": [{ "family": "Nguyen", "given": ["Minh"], "prefix": ["Dr."] }],
+        "identifier": [
+          {
+            "system": "http://hospital.example/sid",
+            "value": "EMP-MD-4401"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:33333333-3333-3333-3333-333333333302",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "prac-nurse-01",
+        "active": true,
+        "name": [{ "family": "Garcia", "given": ["Elena"] }],
+        "identifier": [
+          {
+            "system": "http://hospital.example/sid",
+            "value": "EMP-RN-8821"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:44444444-4444-4444-4444-444444444401",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-2001",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP",
+          "display": "inpatient encounter"
+        },
+        "subject": { "reference": "Patient/pat-1001" },
+        "participant": [
+          {
+            "individual": { "reference": "Practitioner/prac-dr-01" },
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND",
+                    "display": "attender"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "period": { "start": "2026-05-01T08:00:00Z" },
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "233604007",
+                "display": "Pneumonia"
+              }
+            ],
+            "text": "Community-acquired pneumonia"
+          }
+        ],
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/discharge-disposition",
+                "code": "home",
+                "display": "Home"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:44444444-4444-4444-4444-444444444402",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-2002",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": { "reference": "Patient/pat-1002" },
+        "period": { "start": "2026-05-02T14:30:00Z" },
+        "reasonCode": [
+          {
+            "text": "Cellulitis"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:44444444-4444-4444-4444-444444444403",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-2003",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": { "reference": "Patient/pat-1003" },
+        "period": { "start": "2026-05-02T19:00:00Z" },
+        "reasonCode": [{ "text": "Dehydration / AKI" }]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:44444444-4444-4444-4444-444444444404",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-2004",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": { "reference": "Patient/pat-1004" },
+        "period": { "start": "2026-05-03T04:15:00Z" },
+        "reasonCode": [{ "text": "Respiratory failure" }]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:55555555-5555-5555-5555-555555555501",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-3001",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "subject": { "reference": "Patient/pat-1001" },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "233604007",
+              "display": "Pneumonia"
+            }
+          ],
+          "text": "Pneumonia"
+        },
+        "onsetDateTime": "2026-04-30"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:55555555-5555-5555-5555-555555555502",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-3002",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "subject": { "reference": "Patient/pat-1002" },
+        "code": { "text": "Cellulitis left leg" },
+        "onsetDateTime": "2026-05-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:66666666-6666-6666-6666-666666666601",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-vitals-1001",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85353-1",
+              "display": "Vital signs panel"
+            }
+          ]
+        },
+        "subject": { "reference": "Patient/pat-1001" },
+        "effectiveDateTime": "2026-05-03T11:55:00Z",
+        "component": [
+          {
+            "code": {
+              "coding": [{ "system": "http://loinc.org", "code": "8867-4" }]
+            },
+            "valueQuantity": { "value": 102, "unit": "/min", "system": "http://unitsofmeasure.org", "code": "/min" }
+          },
+          {
+            "code": {
+              "coding": [{ "system": "http://loinc.org", "code": "8480-6" }]
+            },
+            "valueQuantity": { "value": 118, "unit": "mm[Hg]", "system": "http://unitsofmeasure.org", "code": "mm[Hg]" }
+          },
+          {
+            "code": {
+              "coding": [{ "system": "http://loinc.org", "code": "8310-5" }]
+            },
+            "valueQuantity": { "value": 38.1, "unit": "Cel", "system": "http://unitsofmeasure.org", "code": "Cel" }
+          },
+          {
+            "code": {
+              "coding": [{ "system": "http://loinc.org", "code": "2708-6" }]
+            },
+            "valueQuantity": { "value": 93, "unit": "%", "system": "http://unitsofmeasure.org", "code": "%" }
+          },
+          {
+            "code": {
+              "coding": [{ "system": "http://loinc.org", "code": "9279-1" }]
+            },
+            "valueQuantity": { "value": 24, "unit": "/min", "system": "http://unitsofmeasure.org", "code": "/min" }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:77777777-7777-7777-7777-777777777701",
+      "resource": {
+        "resourceType": "Device",
+        "id": "dev-vent-4421",
+        "status": "active",
+        "manufacturer": "DemoMed",
+        "deviceName": [{ "name": "Ventilator Model X", "type": "user-friendly-name" }],
+        "identifier": [{ "value": "SN-V-88421" }],
+        "patient": { "reference": "Patient/pat-1004" }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:88888888-8888-8888-8888-888888888801",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "medreq-4001",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "313782",
+              "display": "Acetaminophen 325 MG Oral Tablet"
+            }
+          ],
+          "text": "Acetaminophen PRN"
+        },
+        "subject": { "reference": "Patient/pat-1001" },
+        "authoredOn": "2026-05-02",
+        "dosageInstruction": [{ "text": "650 mg PO q6h PRN fever" }]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:99999999-9999-9999-9999-999999999901",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "sr-lab-5001",
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood by Automated count"
+            }
+          ],
+          "text": "CBC"
+        },
+        "subject": { "reference": "Patient/pat-1001" },
+        "authoredOn": "2026-05-03T10:00:00Z"
+      }
+    }
+  ]
+}

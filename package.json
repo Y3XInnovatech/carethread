@@ -1,0 +1,13 @@
+{
+  "name": "carethread",
+  "private": true,
+  "workspaces": ["server", "web"],
+  "scripts": {
+    "install:all": "npm install",
+    "dev": "concurrently -n server,web -c blue,green \"npm run dev -w server\" \"npm run dev -w web\"",
+    "build": "npm run build -w server && npm run build -w web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
