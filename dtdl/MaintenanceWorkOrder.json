@@ -1,0 +1,22 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:asset:MaintenanceWorkOrder;1",
+  "@type": "Interface",
+  "displayName": "Maintenance Work Order",
+  "contents": [
+    { "@type": "Property", "name": "workOrderId", "schema": "string" },
+    { "@type": "Property", "name": "deviceId", "schema": "string" },
+    { "@type": "Property", "name": "priority", "schema": "string" },
+    { "@type": "Property", "name": "scheduledDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "assignedTechnicianId", "schema": "string" },
+    { "@type": "Property", "name": "status", "schema": "string" },
+    { "@type": "Property", "name": "resolutionNotes", "schema": "string" },
+    { "@type": "Property", "name": "createdAt", "schema": "dateTime" },
+    { "@type": "Property", "name": "completedAt", "schema": "dateTime" },
+    {
+      "@type": "Relationship",
+      "name": "forDevice",
+      "target": "dtmi:carethread:asset:MedicalDevice;1"
+    }
+  ]
+}

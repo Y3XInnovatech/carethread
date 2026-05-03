@@ -4,10 +4,17 @@
   "workspaces": ["server", "web"],
   "scripts": {
     "install:all": "npm install",
+    "start": "npm install && concurrently -n server,web -c blue,green \"npm run dev -w server\" \"npm run dev -w web\"",
     "dev": "concurrently -n server,web -c blue,green \"npm run dev -w server\" \"npm run dev -w web\"",
-    "build": "npm run build -w server && npm run build -w web"
+    "build": "npm run build -w web && npm run build -w server",
+    "prod": "npm run build && node server/dist/index.js",
+    "server": "npm run dev -w server",
+    "web": "npm run dev -w web"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

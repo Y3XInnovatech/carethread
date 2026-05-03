@@ -1,0 +1,23 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:clinical:Alert;1",
+  "@type": "Interface",
+  "displayName": "Clinical Alert",
+  "contents": [
+    { "@type": "Property", "name": "severity", "schema": "string" },
+    { "@type": "Property", "name": "type", "schema": "string" },
+    { "@type": "Property", "name": "patientId", "schema": "string" },
+    { "@type": "Property", "name": "timestamp", "schema": "dateTime" },
+    { "@type": "Property", "name": "acknowledged", "schema": "boolean" },
+    { "@type": "Property", "name": "acknowledgedBy", "schema": "string" },
+    { "@type": "Property", "name": "acknowledgedAt", "schema": "dateTime" },
+    { "@type": "Property", "name": "responseCode", "schema": "string" },
+    { "@type": "Property", "name": "escalationLevel", "schema": "integer" },
+    { "@type": "Property", "name": "message", "schema": "string" },
+    {
+      "@type": "Relationship",
+      "name": "regardsPatient",
+      "target": "dtmi:carethread:clinical:PatientTwin;1"
+    }
+  ]
+}

@@ -1,18 +1,28 @@
 import express from "express";
 import cors from "cors";
 import { createServer } from "node:http";
+import { existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { WebSocketServer } from "ws";
 import { loadDemoEhr } from "./fhir/loadDemoEhr.js";
 import { CareThreadStore } from "./store.js";
 import { registerApi } from "./api.js";
+import { registerAuthRoutes } from "./auth/routes.js";
+import { authMiddleware } from "./auth/middleware.js";
 
 const PORT = Number(process.env.PORT) || 3001;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const WEB_DIST = join(__dirname, "..", "..", "web", "dist");
 
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 
 const store = new CareThreadStore();
+
+registerAuthRoutes(app);
+app.use("/api/v1", authMiddleware);
 registerApi(app, store);
 
 const server = createServer(app);
@@ -60,6 +70,8 @@ wss.on("connection", (ws, req) => {
     subscribe(ws, "occupancy");
   } else if (topic === "assets" && assetId) {
     subscribe(ws, `assets:${assetId}`);
+  } else if (topic === "hospital-health") {
+    subscribe(ws, "hospital-health");
   } else {
     subscribe(ws, "alerts");
   }
@@ -101,11 +113,24 @@ async function main() {
         timestamp: new Date().toISOString(),
       });
     }
+    broadcast("hospital-health", store.computeHealthScore());
   }, 5000);
 
+  if (existsSync(WEB_DIST)) {
+    app.use(express.static(WEB_DIST));
+    app.get("*", (_req, res) => {
+      res.sendFile(join(WEB_DIST, "index.html"));
+    });
+    console.log(`Serving frontend from ${WEB_DIST}`);
+  }
+
   server.listen(PORT, () => {
-    console.log(`CareThread demo API http://localhost:${PORT}/api/v1`);
+    console.log(`CareThread API http://localhost:${PORT}/api/v1`);
     console.log(`WebSocket ws://localhost:${PORT}/ws`);
+    if (existsSync(WEB_DIST)) {
+      console.log(`Frontend: http://localhost:${PORT}`);
+    }
+    console.log(`Auth disabled: ${process.env.AUTH_DISABLED === "true" ? "YES" : "NO (set AUTH_DISABLED=true for demo)"}`);
   });
 }
 

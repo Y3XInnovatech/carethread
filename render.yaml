@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: carethread
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: node server/dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AUTH_DISABLED
+        value: "true"

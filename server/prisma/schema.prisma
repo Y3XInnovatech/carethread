@@ -1,0 +1,216 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Core twins ────────────────────────────────────────────────────────
+
+model Ward {
+  id             String  @id
+  name           String
+  specialisation String
+  capacity       Int
+  staffRatio     Float
+  rooms          Room[]
+  staff          Staff[]
+}
+
+model Room {
+  id             String   @id
+  wardId         String
+  ward           Ward     @relation(fields: [wardId], references: [id])
+  bedCount       Int
+  roomType       String
+  cleaningStatus String   @default("clean")
+  patients       Patient[]
+  assets         Asset[]
+}
+
+model Patient {
+  id                    String    @id
+  givenName             String
+  familyName            String
+  admissionDate         DateTime
+  diagnosisCode         String?
+  acuityScore           Int       @default(2)
+  expectedDischargeDate DateTime?
+  roomId                String?
+  room                  Room?     @relation(fields: [roomId], references: [id])
+  bedNumber             String?
+  vitalsHistory         VitalsHistory[]
+  alerts                Alert[]
+  staffAssignments      StaffAssignment[]
+}
+
+model Staff {
+  id              String  @id
+  role            String
+  givenName       String
+  familyName      String
+  specialisations String[]
+  certifications  String[]
+  shiftPattern    String
+  currentWardId   String?
+  ward            Ward?   @relation(fields: [currentWardId], references: [id])
+  assignments     StaffAssignment[]
+  workOrders      WorkOrder[]
+}
+
+model StaffAssignment {
+  id        String  @id @default(uuid())
+  staffId   String
+  patientId String
+  staff     Staff   @relation(fields: [staffId], references: [id])
+  patient   Patient @relation(fields: [patientId], references: [id])
+  assignedAt DateTime @default(now())
+
+  @@unique([staffId, patientId])
+}
+
+model Asset {
+  id                   String    @id
+  deviceType           String
+  manufacturer         String
+  serialNumber         String
+  roomId               String?
+  room                 Room?     @relation(fields: [roomId], references: [id])
+  assetHealthScore     Float     @default(100)
+  failureProbability24h Float    @default(0)
+  failureProbability48h Float    @default(0)
+  failureProbability72h Float    @default(0)
+  lastMaintenanceDate  DateTime?
+  calibrationDueDate   DateTime?
+  maintenanceStatus    String    @default("operational")
+  workOrders           WorkOrder[]
+}
+
+// ── Vitals time-series ────────────────────────────────────────────────
+
+model VitalsHistory {
+  id              String   @id @default(uuid())
+  patientId       String
+  patient         Patient  @relation(fields: [patientId], references: [id])
+  timestamp       DateTime @default(now())
+  heartRate       Float
+  bpSystolic      Float
+  bpDiastolic     Float
+  spO2            Float
+  respiratoryRate Float
+  temperatureC    Float
+  cewsScore       Float
+
+  @@index([patientId, timestamp])
+}
+
+// ── Alerts & audit ────────────────────────────────────────────────────
+
+model Alert {
+  id              String   @id @default(uuid())
+  severity        String
+  type            String
+  patientId       String?
+  patient         Patient? @relation(fields: [patientId], references: [id])
+  message         String
+  acknowledged    Boolean  @default(false)
+  acknowledgedBy  String?
+  acknowledgedAt  DateTime?
+  responseCode    String?
+  escalationLevel Int      @default(0)
+  createdAt       DateTime @default(now())
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  userId       String
+  action       String
+  resourceType String
+  resourceId   String?
+  details      String?
+  ipAddress    String?
+  timestamp    DateTime @default(now())
+
+  @@index([userId, timestamp])
+  @@index([resourceType, resourceId])
+}
+
+// ── Equipment maintenance ─────────────────────────────────────────────
+
+model WorkOrder {
+  id             String    @id @default(uuid())
+  assetId        String
+  asset          Asset     @relation(fields: [assetId], references: [id])
+  priority       String    @default("routine")
+  scheduledDate  DateTime?
+  assignedToId   String?
+  assignedTo     Staff?    @relation(fields: [assignedToId], references: [id])
+  status         String    @default("scheduled")
+  resolutionNotes String?
+  createdAt      DateTime  @default(now())
+  completedAt    DateTime?
+}
+
+// ── Staff scheduling ──────────────────────────────────────────────────
+
+model ShiftSchedule {
+  id               String   @id @default(uuid())
+  wardId           String
+  weekStartDate    DateTime
+  complianceStatus String   @default("pending")
+  publishedAt      DateTime?
+  createdAt        DateTime @default(now())
+  shifts           Shift[]
+}
+
+model Shift {
+  id         String        @id @default(uuid())
+  scheduleId String
+  schedule   ShiftSchedule @relation(fields: [scheduleId], references: [id])
+  staffId    String
+  day        Int
+  startHour  Int
+  endHour    Int
+}
+
+// ── Simulation ────────────────────────────────────────────────────────
+
+model Scenario {
+  id                   String   @id @default(uuid())
+  name                 String
+  createdBy            String
+  baselineSnapshotDate DateTime @default(now())
+  parameterOverrides   Json     @default("{}")
+  status               String   @default("pending")
+  runDurationSeconds   Float?
+  createdAt            DateTime @default(now())
+  results              SimulationResult[]
+}
+
+model SimulationResult {
+  id                    String   @id @default(uuid())
+  scenarioId            String
+  scenario              Scenario @relation(fields: [scenarioId], references: [id])
+  avgERWaitMinutes      Float?
+  avgLOSDays            Float?
+  peakOccupancy         Float?
+  staffOvertimeHours    Float?
+  equipmentUtilisation  Float?
+  diversionEvents       Int?
+  runTimestamp          DateTime @default(now())
+}
+
+// ── Authentication ────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  displayName  String
+  role         String   @default("Clinician")
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime?
+}

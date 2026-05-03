@@ -1,0 +1,23 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:staff:ShiftSchedule;1",
+  "@type": "Interface",
+  "displayName": "Shift Schedule",
+  "contents": [
+    { "@type": "Property", "name": "scheduleId", "schema": "string" },
+    { "@type": "Property", "name": "weekStartDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "wardId", "schema": "string" },
+    {
+      "@type": "Property",
+      "name": "assignments",
+      "schema": { "@type": "Array", "elementSchema": "string" }
+    },
+    { "@type": "Property", "name": "complianceStatus", "schema": "string" },
+    { "@type": "Property", "name": "publishedAt", "schema": "dateTime" },
+    {
+      "@type": "Relationship",
+      "name": "coversWard",
+      "target": "dtmi:carethread:hospital:Ward;1"
+    }
+  ]
+}

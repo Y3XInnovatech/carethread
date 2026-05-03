@@ -1,0 +1,19 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:simulation:Scenario;1",
+  "@type": "Interface",
+  "displayName": "What-If Scenario",
+  "contents": [
+    { "@type": "Property", "name": "scenarioId", "schema": "string" },
+    { "@type": "Property", "name": "name", "schema": "string" },
+    { "@type": "Property", "name": "createdBy", "schema": "string" },
+    { "@type": "Property", "name": "baselineSnapshotDate", "schema": "dateTime" },
+    { "@type": "Property", "name": "status", "schema": "string" },
+    { "@type": "Property", "name": "runDurationSeconds", "schema": "double" },
+    {
+      "@type": "Command",
+      "name": "runSimulation",
+      "request": { "name": "durationSeconds", "schema": "double" }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:simulation:SimulationResult;1",
+  "@type": "Interface",
+  "displayName": "Simulation Result",
+  "contents": [
+    { "@type": "Property", "name": "resultId", "schema": "string" },
+    { "@type": "Property", "name": "scenarioId", "schema": "string" },
+    { "@type": "Property", "name": "runTimestamp", "schema": "dateTime" },
+    { "@type": "Telemetry", "name": "avgERWaitMinutes", "schema": "double" },
+    { "@type": "Telemetry", "name": "avgLOSDays", "schema": "double" },
+    { "@type": "Telemetry", "name": "peakOccupancy", "schema": "double" },
+    { "@type": "Telemetry", "name": "staffOvertimeHours", "schema": "double" },
+    { "@type": "Telemetry", "name": "equipmentUtilisation", "schema": "double" },
+    { "@type": "Telemetry", "name": "diversionEvents", "schema": "integer" },
+    {
+      "@type": "Relationship",
+      "name": "forScenario",
+      "target": "dtmi:carethread:simulation:Scenario;1"
+    }
+  ]
+}

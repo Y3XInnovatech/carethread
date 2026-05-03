@@ -1,0 +1,25 @@
+{
+  "@context": "dtmi:dtdl:context;3",
+  "@id": "dtmi:carethread:hospital:Ward;1",
+  "@type": "Interface",
+  "displayName": "Hospital Ward",
+  "contents": [
+    { "@type": "Property", "name": "name", "schema": "string" },
+    { "@type": "Property", "name": "specialisation", "schema": "string" },
+    { "@type": "Property", "name": "capacity", "schema": "integer" },
+    { "@type": "Property", "name": "staffRatio", "schema": "double" },
+    { "@type": "Property", "name": "currentOccupancy", "schema": "integer" },
+    { "@type": "Telemetry", "name": "occupancyRate", "schema": "double" },
+    { "@type": "Telemetry", "name": "avgCewsScore", "schema": "double" },
+    {
+      "@type": "Relationship",
+      "name": "contains",
+      "target": "dtmi:carethread:hospital:Room;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "servedBy",
+      "target": "dtmi:carethread:staff:StaffMember;1"
+    }
+  ]
+}
